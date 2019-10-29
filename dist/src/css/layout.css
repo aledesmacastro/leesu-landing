@@ -1,0 +1,18 @@
+.header {
+    background-color: red;
+}
+.postHeader {
+    background-color: gray;
+}
+.mainContent {
+    background-color: green;
+}
+.postContent {
+    background-color: orange;
+}
+.preFooter {
+    background-color: purple;
+}
+.footer {
+    background-color: blue;
+}

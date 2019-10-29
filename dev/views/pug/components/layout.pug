@@ -1,0 +1,17 @@
+include config.pug
+<!DOCTYPE html>
+html(lang="es")
+    include head.pug
+    body
+        header.header
+            block HEADER
+        section.postHeader
+            block POSTHEADER
+        main.mainContent
+            block MAINCONTENT
+        section.postContent
+            block POSTCONTENT
+        Section.preFooter
+            block PREFOOTER
+        footer.footer
+            block FOOTER

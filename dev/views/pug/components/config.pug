@@ -1,0 +1,14 @@
+//- VARIABLES
+-var namePage= "Everest Andorra"
+-var email= "info@leesu.com"
+-var infoLista= ["Lorem, ipsum.", "Lorem, ipsum dolor.", "Lorem ipsum dolor sit."]
+-var urlsRedes= ["facebook", "twitter", "instagram", "whatsapp"]
+-var copyright= "© 2019 Leesu todos los derechos reservados"
+
+//- MIXIN
+mixin redSocial
+    .contentSocial
+        p Lorem ipsum dolor sit.
+        ul
+            each urlRed in urlsRedes
+                li: a(href=urlRed) #{urlRed}

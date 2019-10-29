@@ -1,0 +1,25 @@
+form(action="" method="POST")
+    .group_title
+        h2 Titulo del formulario
+    .group_info_names
+        label(for="first_name") First Name
+        input(type="text", name="first_name")
+        label(for="last_name") Last Name
+        input(type="text", name="last_name")
+    .group_contact
+        label(for="email") Email
+        input(type="email", name="email")
+        label(for="phone") Phone
+        input(type="tel", name="phone")
+    .group_residen_information
+        label(for="city") Ciudad
+        input(type="text", name="city")
+    .group_politics
+        label(for="comments") Comentarios
+        textarea(name="comments", cols="30", rows="10")
+        label(for="accept") Lorem ipsum dolor sit amet.
+        input(type="checkbox", name="accept")
+        input(class="campaign" type="hidden", name="")
+        input(class="" type="hidden", name="") 
+    .group_buttons
+        input(type="submit", value="Enviar")

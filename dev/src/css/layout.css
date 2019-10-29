@@ -1,0 +1,26 @@
+$color-a: red;
+$color-b: gray;
+$color-c: green;
+$color-d: orange;
+$color-e: purple;
+$color-f: blue;
+$color-g: peru;
+
+.header {
+    background-color: $color-a;
+}
+.postHeader {
+    background-color: $color-b;
+}
+.mainContent {
+    background-color: $color-c;
+}
+.postContent {
+    background-color: $color-d;
+}
+.preFooter {
+    background-color: $color-e;
+}
+.footer {
+    background-color: $color-f;
+}

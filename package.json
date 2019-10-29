@@ -1,0 +1,34 @@
+{
+  "name": "leesu",
+  "version": "1.0.0",
+  "description": "App de subasta de transporte",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aledesmadev/leesu.git"
+  },
+  "author": "Leesu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aledesmadev/leesu/issues"
+  },
+  "homepage": "https://github.com/aledesmadev/leesu#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.0",
+    "browser-sync": "^2.26.7",
+    "cssnext": "^1.8.4",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-image": "^5.1.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "precss": "^4.0.0"
+  }
+}
