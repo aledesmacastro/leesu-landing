@@ -2,7 +2,7 @@
 * Dependencias
 */
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
+// const uglify = require('gulp-uglify');
 const pug = require('gulp-pug');
 const image = require('gulp-image');
 // const sass = require('gulp-sass');
