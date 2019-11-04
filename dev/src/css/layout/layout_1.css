@@ -1,19 +1,19 @@
-$color-a: red;
-$color-b: gray;
-$color-c: green;
-$color-d: orange;
-$color-e: purple;
-$color-f: blue;
-$color-g: peru;
-
 .header {
-    background-color: $color-a;
+    .header_container {
+        display: grid;
+        grid-template-columns: 25% 50% 25%;
+    }
 }
 .postHeader {
     background-color: $color-b;
 }
 .mainContent {
     background-color: $color-c;
+    .container_main {
+        display: grid;
+        grid-template: auto auto / minmax(auto, 75%) minmax(300px, 25%);
+        grid-gap: 10px;
+    }
 }
 .postContent {
     background-color: $color-d;

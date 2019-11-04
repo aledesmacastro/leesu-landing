@@ -1,0 +1,16 @@
+header {
+    padding: 5px 0;
+    background-color: var(--grayDark);
+    color: white;
+}
+
+.header_container div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__logo,
+.header__contact {
+    @include flexbox(column, wrap, center, center);
+}

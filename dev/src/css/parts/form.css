@@ -1,0 +1,26 @@
+@custom-selector :--inputs input, textarea, select;
+
+:--inputs {
+    background-color: var(--grayLight);
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--grayDark);
+    &:focus {
+        outline: 0;
+    }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        border: 1px solid var(--grayDark);
+        -webkit-text-fill-color: #FFFF;
+        -webkit-box-shadow: 0 0 0px 1000px var(--grayLight) inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+}

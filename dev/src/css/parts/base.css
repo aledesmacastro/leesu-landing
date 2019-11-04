@@ -1,0 +1,28 @@
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-size: 16px;
+}
+:root {
+    --grayDark: #29211E;
+    --grayMedium: #4E4E4C;
+    --grayLight: #828282;
+    --orange: #E44E1B;
+}
+
+:--heading {
+    margin-block: 0;
+}
+
+body {
+    background-color: var(--grayMedium);
+    color: black;
+}
+.container_fluid {
+    width: 75vw;
+    margin: auto;
+}
+

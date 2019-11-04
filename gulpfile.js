@@ -7,15 +7,19 @@ const pug = require('gulp-pug');
 const image = require('gulp-image');
 // const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
+const sassmixins = require('gulp-sass-to-postcss-mixins');
 const postcssPresetEnv = require('postcss-preset-env');
 const precss = require('precss');
+const cssnano = require('cssnano');
+const atImport = require("postcss-import");
+// const combineMq = require("postcss-combine-media-query");
 const browsersync = require('browser-sync').create();
 
 var source_paths = {
     js: './dev/src/js/**/*.js',
-    views_pug: './dev/views/pug/**/*.pug',
-    css: './dev/src/css/**/*.css'
+    views_pug: './dev/views/pug/*.pug',
+    css: './dev/src/css/*.css'
 }
 
 // gulp.task('sass', function(){
@@ -27,14 +31,30 @@ var source_paths = {
 
 gulp.task('css', function () {
     var processors = [
-        autoprefixer,
-        postcssPresetEnv,
-        precss
+        postcssPresetEnv({
+            autoprefixer: {
+                grid: true
+            },
+            browsers: [
+                "last 3 version"
+            ],
+            stage: 4,
+            features: {
+                'nesting-rules': true
+            },
+            preserve: false
+        }),
+        atImport,
+        precss,
+        // cssnano({
+        //     calc: {precision: 2}
+        // }),
     ];
     return gulp.src(source_paths.css)
+    .pipe(sassmixins())
     .pipe(postcss(processors))
     .pipe(gulp.dest('./dist/src/css/'))
-    .pipe(browsersync.stream({match:'**/*.css'}))
+    .pipe(browsersync.stream())
 });
 
 gulp.task('pug', function() {

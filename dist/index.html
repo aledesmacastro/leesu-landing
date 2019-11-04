@@ -6,96 +6,111 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Leesu</title>
     <base href="./src/"/>
-    <link rel="stylesheet" href="css/layout.css"/>
-    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css"/>
   </head>
   <body>
     <header class="header">
-      <div class="header_container">
-        <div class="header__logo"><img src="" alt="" srcset=""/></div>
-        <div class="header__navegacion"></div>
-        <div class="header__contact">
-          <div class="header__contact__number">PBX 123-6534-55</div>
-          <div class="header__contact__email">info@leesu.com</div>
+      <div class="container_fluid">
+        <div class="header_container">
+          <div class="header__logo"> <img src="/" alt="" srcset="/"/>
+            <div class="header__title">Leesu</div>
+            <div class="header__subtitle">Su mejor opción</div>
+          </div>
+          <div class="header__navegacion"></div>
+          <div class="header__contact">
+            <div class="header__contact__number">PBX: 123-6534-55</div>
+            <div class="header__contact__email">info@leesu.com</div>
+          </div>
         </div>
       </div>
     </header>
     <section class="postHeader">
-      <div class="postHeader__contenedor">
-        <h1 class="title">Lorem ipsum dolor sit amet.</h1>
-        <h2 class="subtitle">Idalia ctetur adipisicing elit.</h2>
+      <div class="container_fluid">
+        <div class="postHeader__contenedor">
+          <h1 class="title">fore ipsum dolor sit amet.</h1>
+          <h2 class="subtitle">Idalia ctetur adipisicing elit.</h2>
+        </div>
       </div>
     </section>
     <main class="mainContent">
-      <div class="container_main">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.</p>
+      <div class="container_fluid">
+        <div class="container_main">
+          <div class="asideLeft">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.</p>
+          </div>
+          <div class="asideRight__formulario">
+            <form action="" method="POST">
+              <div class="group_title">
+                <h2>Información de contacto</h2>
+              </div>
+              <div class="group_info_names">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name"/>
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name"/>
+              </div>
+              <div class="group_contact">
+                <label for="email">Email</label>
+                <input type="email" name="email"/>
+                <label for="phone">Phone</label>
+                <input type="tel" name="phone"/>
+              </div>
+              <div class="group_residen_information">
+                <label for="city">Ciudad</label>
+                <input type="text" name="city"/>
+              </div>
+              <div class="group_politics">
+                <label for="comments">Comentarios</label>
+                <textarea name="comments" cols="30" rows="10"></textarea>
+                <label for="accept">Lorem ipsum dolor sit amet.</label>
+                <input type="checkbox" name="accept"/>
+                <input class="campaign" type="hidden" name=""/>
+                <input type="hidden" name=""/>
+              </div>
+              <div class="group_buttons">
+                <button type="submit" value="Enviar">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="asideRight__formulario">
-        <form action="" method="POST">
-          <div class="group_title">
-            <h2>Información de contacto</h2>
-          </div>
-          <div class="group_info_names">
-            <label for="first_name">First Name</label>
-            <input type="text" name="first_name"/>
-            <label for="last_name">Last Name</label>
-            <input type="text" name="last_name"/>
-          </div>
-          <div class="group_contact">
-            <label for="email">Email</label>
-            <input type="email" name="email"/>
-            <label for="phone">Phone</label>
-            <input type="tel" name="phone"/>
-          </div>
-          <div class="group_residen_information">
-            <label for="city">Ciudad</label>
-            <input type="text" name="city"/>
-          </div>
-          <div class="group_politics">
-            <label for="comments">Comentarios</label>
-            <textarea name="comments" cols="30" rows="10"></textarea>
-            <label for="accept">Lorem ipsum dolor sit amet.</label>
-            <input type="checkbox" name="accept"/>
-            <input class="campaign" type="hidden" name=""/>
-            <input type="hidden" name=""/>
-          </div>
-          <div class="group_buttons">
-            <button type="submit" value="Enviar">Enviar</button>
-          </div>
-        </form>
-      </div>
-      <div class="asideRight__video"></div>
     </main>
     <section class="postContent">
-      <ul>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum dolor.</li>
-        <li>Lorem ipsum dolor sit.</li>
-      </ul>
+      <div class="container_fluid">
+        <ul>
+          <li>Lorem, ipsum.</li>
+          <li>Lorem, ipsum dolor.</li>
+          <li>Lorem ipsum dolor sit.</li>
+        </ul>
+      </div>
     </section>
     <Section class="preFooter">
-      <section class="preFooter">
-        <div class="contentSocial">
-          <p>Lorem ipsum dolor sit.</p>
-          <ul>
-            <li><a href="facebook">facebook</a></li>
-            <li><a href="twitter">twitter</a></li>
-            <li><a href="instagram">instagram</a></li>
-            <li><a href="whatsapp">whatsapp</a></li>
-          </ul>
-        </div>
-      </section>
+      <div class="container_fluid">
+        <section class="preFooter">
+          <div class="contentSocial">
+            <p>REDES SOCIALES</p>
+            <ul>
+              <li><a href="facebook">facebook</a></li>
+              <li><a href="twitter">twitter</a></li>
+              <li><a href="instagram">instagram</a></li>
+              <li><a href="whatsapp">whatsapp</a></li>
+            </ul>
+          </div>
+        </section>
+      </div>
     </Section>
     <footer class="footer">
-      <div class="footer_container">
-        <div class="footer_logo">Lorem, ipsum dolor.<img src="" alt="logo" srcset=""/></div>
-        <div class="footer_information">
-          <p>
-            Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Culpa, sapiente.
-          </p>
-          <p><b>© 2019 Leesu todos los derechos reservados</b><span>Política de privacidad.</span></p>
+      <div class="container_fluid">
+        <div class="footer_container">
+          <div class="footer_logo">Lorem, ipsum dolor.<img src="" alt="logo" srcset=""/></div>
+          <div class="footer_information">
+            <p>
+              Lorem ipsum dolor sit amet consectetur,
+              adipisicing elit. Culpa, sapiente.
+            </p>
+            <p><b>© 2019 Leesu todos los derechos reservados</b><span>Política de privacidad.</span></p>
+          </div>
         </div>
       </div>
     </footer>

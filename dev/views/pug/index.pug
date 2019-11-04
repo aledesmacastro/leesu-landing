@@ -3,14 +3,14 @@ block HEADER
     include components/header.pug
 block POSTHEADER
     .postHeader__contenedor
-        h1.title Lorem ipsum dolor sit amet.
+        h1.title fore ipsum dolor sit amet.
         h2.subtitle Idalia ctetur adipisicing elit.
 block MAINCONTENT
     .container_main
-        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.
-    .asideRight__formulario
-        include components/form1.pug
-    .asideRight__video
+        .asideLeft
+            p Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.
+        .asideRight__formulario
+            include components/form1.pug
 block POSTCONTENT
     ul
         each lista in infoLista

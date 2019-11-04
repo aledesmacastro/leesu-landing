@@ -4,14 +4,20 @@ html(lang="es")
     include head.pug
     body
         header.header
-            block HEADER
+            .container_fluid
+                block HEADER
         section.postHeader
-            block POSTHEADER
+            .container_fluid
+                block POSTHEADER
         main.mainContent
-            block MAINCONTENT
+            .container_fluid
+                block MAINCONTENT
         section.postContent
-            block POSTCONTENT
+            .container_fluid
+                block POSTCONTENT
         Section.preFooter
-            block PREFOOTER
+            .container_fluid
+                block PREFOOTER
         footer.footer
-            block FOOTER
+            .container_fluid
+                block FOOTER
