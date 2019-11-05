@@ -5,3 +5,37 @@ $color-d: orange;
 $color-e: purple;
 $color-f: red;
 $color-g: peru;
+
+/* SELECTORES */
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
+/* FONTS */
+@font-face {
+    font-family: 'Roboto regular';
+    src: local('Roboto regular'), 
+    url('fonts/roboto_regular.woff2') format('woff2'),
+    url('fonts/roboto_regular.woff') format('woff'),
+    url('fonts/roboto_regular.ttf') format('truetype'),
+    url('fonts/roboto_regular.eot') format('embedded-opentype');
+}
+$roboto: 'Roboto regular', Helvetica, sans-serif;
+
+@font-face {
+    font-family: 'Oswald regular';
+    src: local('Oswald regular'), 
+    url('fonts/oswald_regular.woff2') format('woff2'),
+    url('fonts/oswald_regular.woff') format('woff'),
+    url('fonts/oswald_regular.ttf') format('truetype'),
+    url('fonts/oswald_regular.eot') format('embedded-opentype');
+}
+$oswald: 'Oswald regular', Helvetica, sans-serif;
+
+@font-face {
+    font-family: 'Lato regular';
+    src: local('Lato regular'), 
+    url('fonts/Lato_regular.woff2') format('woff2'),
+    url('fonts/Lato_regular.woff') format('woff'),
+    url('fonts/Lato_regular.ttf') format('truetype'),
+    url('fonts/Lato_regular.eot') format('embedded-opentype');
+}
+$lato: 'Lato regular', Helvetica, sans-serif;

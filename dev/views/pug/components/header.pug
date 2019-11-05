@@ -1,10 +1,14 @@
--var phone= ["123-6534-55", "751-586-11"]
+-var phone= ["123 6534 55", "751 586 11"]
 .header_container
     .header__logo 
         img(src="/", alt="", srcset="/")
-        .header__title Leesu
-        .header__subtitle Su mejor opción
+        .header__title 
+            h1 Leesu
+        .header__subtitle Su mejor opción 
+            img.people-carry(src="images/logos/men-carrying-a-box.png", alt="")
     .header__navegacion
     .header__contact
-        .header__contact__number PBX: #{phone[0]}
-        .header__contact__email #{email}
+        .header__contact__number 
+            a(href="tel:+" + phone[0]) PBX: #{phone[0]}
+        .header__contact__email
+            a(href="mailto:" + email) #{email}
