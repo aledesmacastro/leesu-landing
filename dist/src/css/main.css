@@ -310,9 +310,25 @@ template {
     background-color: yellow;
 }
 .mainContent {
-    background-color: green;
+    position: relative;
+    background-image: url("../images/imagen-main.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center
 }
+.mainContent:before {
+        background-color: #29211E;
+        background-color: var(--grayDark);
+        position: absolute;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+    }
 .mainContent .container_main {
+        position: relative;
+        z-index: 2;
         display: -ms-grid;
         display: grid;
         -ms-grid-rows: auto 10px auto;
@@ -320,6 +336,25 @@ template {
             grid-template: auto auto / minmax(auto, 75%) minmax(300px, 25%);
         grid-gap: 10px;
     }
+.mainContent .container_main .asideLeft {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+            color: white;
+            text-align: justify;
+        }
+.mainContent .container_main .asideLeft h2 {
+                margin-bottom: 5px;
+                font-size: 1.5rem;
+                letter-spacing: 0.8px;
+            }
 .postContent {
     background-color: orange;
 }

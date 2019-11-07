@@ -8,11 +8,36 @@
     background-color: $color-b;
 }
 .mainContent {
-    background-color: $color-c;
+    position: relative;
+    background-image: url("../images/imagen-main.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    &:before {
+        background-color: var(--grayDark);
+        position: absolute;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+    }
     .container_main {
+        position: relative;
+        z-index: 2;
         display: grid;
         grid-template: auto auto / minmax(auto, 75%) minmax(300px, 25%);
         grid-gap: 10px;
+        .asideLeft {
+            @include flexbox(column, wrap, center, center);
+            color: white;
+            text-align: justify;
+            h2 {
+                margin-bottom: 5px;
+                font-size: 1.5rem;
+                letter-spacing: 0.8px;
+            }
+        }
     }
 }
 .postContent {
