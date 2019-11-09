@@ -1,29 +1,42 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Restserver\Libraries\REST_Controller;
-use Restserver\Libraries\REST_Controller_Definitions;
-
-require APPPATH . '/libraries/Format.php';
-require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . '/libraries/REST_Controller_Definitions.php';
-
 class Leads extends CI_Controller {
 
-	use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
+	public function index()
+	{
+		$datos["titulo"] = " .: Formulario de Registro :.";
+		$this->load->view("landing/index", $datos);
 	}
 
-	public function test_get(){
-		$array = array('Hola',"Mundo","Codeigniter");
-		$this->response($array);
-	}
+	public function action(){
 
-	public function leads_get(){
-		//echo $this->get("id");
-		$this->load->model("Leads_model");
-		$datos = $this->Leads_model->get();
-		$this->response($datos);
+		if ($this->input->get('data_action')) {
+			$data_action = $this->input->get('data_action');
+
+			if ($data_action == 'create') {
+
+				$first_name	= $this->input->get('first_name');
+				$last_name	= $this->input->get('last_name');
+				$email	= $this->input->get('email');
+				$phone	= $this->input->get('phone');
+				$city	= $this->input->get('city');
+				$comments	= $this->input->get('comments');
+
+				$api_url = base_url() . 'LeadsRestApi/addLead?first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone . '&city=' . $city . '&comments=' . $comments;
+
+				$client = curl_init($api_url);
+
+				curl_setopt($client, CURLOPT_CUSTOMREQUEST, "GET");
+				curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+				$response = curl_exec($client);
+				curl_close($client);
+
+				echo $response;
+			}
+
+		}
 	}
 	
 }
