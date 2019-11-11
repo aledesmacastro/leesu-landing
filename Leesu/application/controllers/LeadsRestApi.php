@@ -30,12 +30,11 @@ class LeadsRestApi extends CI_Controller {
 	public function addLead(){
 		$this->form_validation->set_data($this->input->get());
 
-		$this->form_validation->set_rules('first_name','Nombre(s)','required');
-		$this->form_validation->set_rules('last_name','Apellido(s)','required');
+		$this->form_validation->set_rules('first_name','First Name','required');
+		$this->form_validation->set_rules('last_name','Last Name','required');
 		$this->form_validation->set_rules('email','Email','required');
-		$this->form_validation->set_rules('phone','Telefono','required');
-		$this->form_validation->set_rules('city','Ciudad','required');
-		$this->form_validation->set_rules('comments','Comentarios','required');
+		$this->form_validation->set_rules('phone','Phone','required');
+		$this->form_validation->set_rules('city','City','required');
 
 		if ($this->form_validation->run()) {
 			$data = array(
@@ -44,7 +43,8 @@ class LeadsRestApi extends CI_Controller {
 				'email'			=> $this->input->get('email'),
 				'phone'			=> $this->input->get('phone'),
 				'city'			=> $this->input->get('city'),
-				'comments'		=> $this->input->get('comments')
+				'comments'		=> $this->input->get('comments'),
+				'ip_address'	=> $this->input->ip_address()
 			);
 
 			$array = $this->Leads_model->addLead($data);
@@ -55,8 +55,7 @@ class LeadsRestApi extends CI_Controller {
 				'last_name_error'	=> form_error('last_name'),
 				'email_error'		=> form_error('email'),
 				'phone_error'		=> form_error('phone'),
-				'city_error'		=> form_error('city'),
-				'comments_error'	=> form_error('comments')
+				'city_error'		=> form_error('city')
 			);
 		}
 

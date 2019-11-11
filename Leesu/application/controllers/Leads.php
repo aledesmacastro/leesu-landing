@@ -16,12 +16,12 @@ class Leads extends CI_Controller {
 
 			if ($data_action == 'create') {
 
-				$first_name	= $this->input->get('first_name');
-				$last_name	= $this->input->get('last_name');
-				$email	= $this->input->get('email');
-				$phone	= $this->input->get('phone');
-				$city	= $this->input->get('city');
-				$comments	= $this->input->get('comments');
+				$first_name = urlencode($this->input->get('first_name'));
+				$last_name = urlencode($this->input->get('last_name'));
+				$email = urlencode($this->input->get('email'));
+				$phone = urlencode($this->input->get('phone'));
+				$city = urlencode($this->input->get('city'));
+				$comments = urlencode($this->input->get('comments'));
 
 				$api_url = base_url() . 'LeadsRestApi/addLead?first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone . '&city=' . $city . '&comments=' . $comments;
 

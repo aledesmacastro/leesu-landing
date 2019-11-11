@@ -7,6 +7,7 @@
     <title>Leesu</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/main.css"/>
     <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/sweetalert.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -21,7 +22,7 @@
           <div class="header__navegacion"></div>
           <div class="header__contact">
             <div class="header__contact__number"> <a href="tel:+123 6534 55">PBX: 123 6534 55</a></div>
-            <div class="header__contact__email"><a href="mailto:info@leesu.com">info@leesu.com</a></div>
+            <div class="header__contact__email"><a href="mailto:info@leesu.co">info@leesu.co</a></div>
           </div>
         </div>
       </div>
@@ -41,18 +42,23 @@
               <div class="group_info_names">
                 <label for="first_name">First Name</label>
                 <input type="text" name="first_name" id="first_name" />
+                <span id="first_name_error"></span>
                 <label for="last_name">Last Name</label>
                 <input type="text" name="last_name" id="last_name" />
+                <span id="last_name_error"></span>
               </div>
               <div class="group_contact">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" />
+                <span id="email_error"></span>
                 <label for="phone">Phone</label>
                 <input type="tel" name="phone" id="phone" />
+                <span id="phone_error"></span>
               </div>
               <div class="group_residen_information">
                 <label for="city">Ciudad</label>
                 <input type="text" name="city" id="city" />
+                <span id="city_error"></span>
               </div>
               <div class="group_politics">
                 <label for="comments">Comentarios</label>
@@ -60,7 +66,6 @@
                 <label for="accept">Lorem ipsum dolor sit amet.</label>
                 <input type="checkbox" name="accept" id="accept" />
                 <input class="campaign" type="hidden" name=""/>
-                <input type="hidden" name="data_action" id="data_action" value="create" />
               </div>
               <div class="group_buttons">
                 <button type="button" value="Enviar" id="send">Enviar</button>
@@ -122,21 +127,30 @@
           var city = $('#city').val();
           var comments = $('#comments').val();
 
-          $.ajax({
-            url:"<?php echo site_url('Leads/action'); ?>",
-            method:"GET",
-            data:{data_action: 'create', first_name: first_name, last_name: last_name, email: email, phone: phone, city: city, comments: comments},
-            dataType:"json",
-            success:function(data){
-                if (data.success) {
-                  alert('inserto');
-                }
+          if($("#accept").is(':checked')) {  
+              $.ajax({
+                url:"<?php echo site_url('Leads/action'); ?>",
+                method:"GET",
+                data:{data_action: 'create', first_name: first_name, last_name: last_name, email: email, phone: phone, city: city, comments: comments},
+                dataType:"json",
+                success:function(data){
+                    if (data.success) {
+                      swal("Finaliza Registro", "Procesado Realizado Exitosamente", "success");
+                      $('#leads_form')[0].reset();
+                    }
 
-                if (data.error) {
-                  alert('error'); 
+                    if (data.error) {
+                      $('#first_name_error').html(data.first_name_error);
+                      $('#last_name_error').html(data.last_name_error);
+                      $('#email_error').html(data.email_error);
+                      $('#phone_error').html(data.phone_error);
+                      $('#city_error').html(data.city_error);
+                    }
                 }
-            }
-          });
+              });
+          } else {  
+              swal("Autorización", "Para realizar el registro primero debe autorizar el tratamiento de sus datos", "info");
+          } 
 
       });
 
