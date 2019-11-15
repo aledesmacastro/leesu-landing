@@ -11,23 +11,26 @@ class Leads extends CI_Controller {
 
 	public function action(){
 
-		if ($this->input->get('data_action')) {
-			$data_action = $this->input->get('data_action');
+		if ($this->input->post('data_action')) {
+			$data_action = $this->input->post('data_action');
 
 			if ($data_action == 'create') {
 
-				$first_name = urlencode($this->input->get('first_name'));
-				$last_name = urlencode($this->input->get('last_name'));
-				$email = urlencode($this->input->get('email'));
-				$phone = urlencode($this->input->get('phone'));
-				$city = urlencode($this->input->get('city'));
-				$comments = urlencode($this->input->get('comments'));
+				$form_data = array(
+					'first_name'	=>	$this->input->post('first_name'),
+					'last_name'		=>	$this->input->post('last_name'),
+					'email'			=>	$this->input->post('email'),
+					'phone'			=>	$this->input->post('phone'),
+					'city'			=>	$this->input->post('city'),
+					'comments'		=>	$this->input->post('comments')
+				);
 
-				$api_url = base_url() . 'LeadsRestApi/addLead?first_name=' . $first_name . '&last_name=' . $last_name . '&email=' . $email . '&phone=' . $phone . '&city=' . $city . '&comments=' . $comments;
+				$api_url = base_url() . 'LeadsRestApi';
 
 				$client = curl_init($api_url);
 
-				curl_setopt($client, CURLOPT_CUSTOMREQUEST, "GET");
+				curl_setopt($client, CURLOPT_POST, true);
+				curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
 				curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 
 				$response = curl_exec($client);

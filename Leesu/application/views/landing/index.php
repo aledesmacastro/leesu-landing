@@ -130,7 +130,7 @@
           if($("#accept").is(':checked')) {  
               $.ajax({
                 url:"<?php echo site_url('Leads/action'); ?>",
-                method:"GET",
+                method:"POST",
                 data:{data_action: 'create', first_name: first_name, last_name: last_name, email: email, phone: phone, city: city, comments: comments},
                 dataType:"json",
                 success:function(data){

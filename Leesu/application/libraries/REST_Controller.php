@@ -1,8 +1,5 @@
 <?php
 
-namespace Restserver\Libraries;
-use Exception;
-use stdClass;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -18,7 +15,140 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link            https://github.com/chriskacerguis/codeigniter-restserver
  * @version         3.0.0
  */
-trait REST_Controller {
+abstract class REST_Controller extends \CI_Controller {
+
+    // Note: Only the widely used HTTP status codes are documented
+
+    // Informational
+
+    const HTTP_CONTINUE = 100;
+    const HTTP_SWITCHING_PROTOCOLS = 101;
+    const HTTP_PROCESSING = 102;            // RFC2518
+
+    // Success
+
+    /**
+     * The request has succeeded
+     */
+    const HTTP_OK = 200;
+
+    /**
+     * The server successfully created a new resource
+     */
+    const HTTP_CREATED = 201;
+    const HTTP_ACCEPTED = 202;
+    const HTTP_NON_AUTHORITATIVE_INFORMATION = 203;
+
+    /**
+     * The server successfully processed the request, though no content is returned
+     */
+    const HTTP_NO_CONTENT = 204;
+    const HTTP_RESET_CONTENT = 205;
+    const HTTP_PARTIAL_CONTENT = 206;
+    const HTTP_MULTI_STATUS = 207;          // RFC4918
+    const HTTP_ALREADY_REPORTED = 208;      // RFC5842
+    const HTTP_IM_USED = 226;               // RFC3229
+
+    // Redirection
+
+    const HTTP_MULTIPLE_CHOICES = 300;
+    const HTTP_MOVED_PERMANENTLY = 301;
+    const HTTP_FOUND = 302;
+    const HTTP_SEE_OTHER = 303;
+
+    /**
+     * The resource has not been modified since the last request
+     */
+    const HTTP_NOT_MODIFIED = 304;
+    const HTTP_USE_PROXY = 305;
+    const HTTP_RESERVED = 306;
+    const HTTP_TEMPORARY_REDIRECT = 307;
+    const HTTP_PERMANENTLY_REDIRECT = 308;  // RFC7238
+
+    // Client Error
+
+    /**
+     * The request cannot be fulfilled due to multiple errors
+     */
+    const HTTP_BAD_REQUEST = 400;
+
+    /**
+     * The user is unauthorized to access the requested resource
+     */
+    const HTTP_UNAUTHORIZED = 401;
+    const HTTP_PAYMENT_REQUIRED = 402;
+
+    /**
+     * The requested resource is unavailable at this present time
+     */
+    const HTTP_FORBIDDEN = 403;
+
+    /**
+     * The requested resource could not be found
+     *
+     * Note: This is sometimes used to mask if there was an UNAUTHORIZED (401) or
+     * FORBIDDEN (403) error, for security reasons
+     */
+    const HTTP_NOT_FOUND = 404;
+
+    /**
+     * The request method is not supported by the following resource
+     */
+    const HTTP_METHOD_NOT_ALLOWED = 405;
+
+    /**
+     * The request was not acceptable
+     */
+    const HTTP_NOT_ACCEPTABLE = 406;
+    const HTTP_PROXY_AUTHENTICATION_REQUIRED = 407;
+    const HTTP_REQUEST_TIMEOUT = 408;
+
+    /**
+     * The request could not be completed due to a conflict with the current state
+     * of the resource
+     */
+    const HTTP_CONFLICT = 409;
+    const HTTP_GONE = 410;
+    const HTTP_LENGTH_REQUIRED = 411;
+    const HTTP_PRECONDITION_FAILED = 412;
+    const HTTP_REQUEST_ENTITY_TOO_LARGE = 413;
+    const HTTP_REQUEST_URI_TOO_LONG = 414;
+    const HTTP_UNSUPPORTED_MEDIA_TYPE = 415;
+    const HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+    const HTTP_EXPECTATION_FAILED = 417;
+    const HTTP_I_AM_A_TEAPOT = 418;                                               // RFC2324
+    const HTTP_UNPROCESSABLE_ENTITY = 422;                                        // RFC4918
+    const HTTP_LOCKED = 423;                                                      // RFC4918
+    const HTTP_FAILED_DEPENDENCY = 424;                                           // RFC4918
+    const HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL = 425;   // RFC2817
+    const HTTP_UPGRADE_REQUIRED = 426;                                            // RFC2817
+    const HTTP_PRECONDITION_REQUIRED = 428;                                       // RFC6585
+    const HTTP_TOO_MANY_REQUESTS = 429;                                           // RFC6585
+    const HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE = 431;                             // RFC6585
+
+    // Server Error
+
+    /**
+     * The server encountered an unexpected error
+     *
+     * Note: This is a generic error message when no specific message
+     * is suitable
+     */
+    const HTTP_INTERNAL_SERVER_ERROR = 500;
+
+    /**
+     * The server does not recognise the request method
+     */
+    const HTTP_NOT_IMPLEMENTED = 501;
+    const HTTP_BAD_GATEWAY = 502;
+    const HTTP_SERVICE_UNAVAILABLE = 503;
+    const HTTP_GATEWAY_TIMEOUT = 504;
+    const HTTP_VERSION_NOT_SUPPORTED = 505;
+    const HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = 506;                        // RFC2295
+    const HTTP_INSUFFICIENT_STORAGE = 507;                                        // RFC4918
+    const HTTP_LOOP_DETECTED = 508;                                               // RFC5842
+    const HTTP_NOT_EXTENDED = 510;                                                // RFC2774
+    const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 
     /**
      * This defines the rest format
@@ -173,15 +303,15 @@ trait REST_Controller {
      * @var array
      */
     protected $_supported_formats = [
-        'json' => 'application/json',
-        'array' => 'application/json',
-        'csv' => 'application/csv',
-        'html' => 'text/html',
-        'jsonp' => 'application/javascript',
-        'php' => 'text/plain',
-        'serialized' => 'application/vnd.php.serialized',
-        'xml' => 'application/xml'
-    ];
+            'json' => 'application/json',
+            'array' => 'application/json',
+            'csv' => 'application/csv',
+            'html' => 'text/html',
+            'jsonp' => 'application/javascript',
+            'php' => 'text/plain',
+            'serialized' => 'application/vnd.php.serialized',
+            'xml' => 'application/xml'
+        ];
 
     /**
      * Information about the current API user
@@ -207,8 +337,6 @@ trait REST_Controller {
      */
     protected $_enable_xss = FALSE;
 
-    private $is_valid_request = TRUE;
-
     /**
      * HTTP status codes and their respective description
      * Note: Only the widely used HTTP status codes are used
@@ -217,29 +345,20 @@ trait REST_Controller {
      * @link http://www.restapitutorial.com/httpstatuscodes.html
      */
     protected $http_status_codes = [
-        REST_Controller_Definitions::HTTP_OK => 'OK',
-        REST_Controller_Definitions::HTTP_CREATED => 'CREATED',
-        REST_Controller_Definitions::HTTP_NO_CONTENT => 'NO CONTENT',
-        REST_Controller_Definitions::HTTP_NOT_MODIFIED => 'NOT MODIFIED',
-        REST_Controller_Definitions::HTTP_BAD_REQUEST => 'BAD REQUEST',
-        REST_Controller_Definitions::HTTP_UNAUTHORIZED => 'UNAUTHORIZED',
-        REST_Controller_Definitions::HTTP_FORBIDDEN => 'FORBIDDEN',
-        REST_Controller_Definitions::HTTP_NOT_FOUND => 'NOT FOUND',
-        REST_Controller_Definitions::HTTP_METHOD_NOT_ALLOWED => 'METHOD NOT ALLOWED',
-        REST_Controller_Definitions::HTTP_NOT_ACCEPTABLE => 'NOT ACCEPTABLE',
-        REST_Controller_Definitions::HTTP_CONFLICT => 'CONFLICT',
-        REST_Controller_Definitions::HTTP_INTERNAL_SERVER_ERROR => 'INTERNAL SERVER ERROR',
-        REST_Controller_Definitions::HTTP_NOT_IMPLEMENTED => 'NOT IMPLEMENTED'
+        self::HTTP_OK => 'OK',
+        self::HTTP_CREATED => 'CREATED',
+        self::HTTP_NO_CONTENT => 'NO CONTENT',
+        self::HTTP_NOT_MODIFIED => 'NOT MODIFIED',
+        self::HTTP_BAD_REQUEST => 'BAD REQUEST',
+        self::HTTP_UNAUTHORIZED => 'UNAUTHORIZED',
+        self::HTTP_FORBIDDEN => 'FORBIDDEN',
+        self::HTTP_NOT_FOUND => 'NOT FOUND',
+        self::HTTP_METHOD_NOT_ALLOWED => 'METHOD NOT ALLOWED',
+        self::HTTP_NOT_ACCEPTABLE => 'NOT ACCEPTABLE',
+        self::HTTP_CONFLICT => 'CONFLICT',
+        self::HTTP_INTERNAL_SERVER_ERROR => 'INTERNAL SERVER ERROR',
+        self::HTTP_NOT_IMPLEMENTED => 'NOT IMPLEMENTED'
     ];
-
-    /**
-     * @var Format
-     */
-    private $format;
-    /**
-     * @var bool
-     */
-    protected $auth_override;
 
     /**
      * Extend this function to apply additional checking early on in the process
@@ -271,27 +390,14 @@ trait REST_Controller {
         // when output is displayed for not damaging data accidentally
         $this->output->parse_exec_vars = FALSE;
 
-        // Log the loading time to the log table
-        if ($this->config->item('rest_enable_logging') === TRUE)
-        {
-                // Start the timer for how long the request takes
+        // Start the timer for how long the request takes
         $this->_start_rtime = microtime(TRUE);
-    }
 
         // Load the rest.php configuration file
-        $this->get_local_config($config);
+        $this->load->config($config);
 
         // At present the library is bundled with REST_Controller 2.5+, but will eventually be part of CodeIgniter (no citation)
-        //if(class_exists('Format'))
-        //{
-        //    $this->format = new Format();
-        //}
-        //else
-        //{
-        //    $this->load->library('Format', NULL, 'libraryFormat');
-        //    $this->format = $this->libraryFormat;
-        //}
-
+        $this->load->library('format');
 
         // Determine supported output formats from configuration
         $supported_formats = $this->config->item('rest_supported_formats');
@@ -325,7 +431,7 @@ trait REST_Controller {
         }
 
         // Load the language file
-        $this->lang->load('rest_controller', $language, FALSE, TRUE, __DIR__.'/../');
+        $this->lang->load('rest_controller', $language, FALSE, TRUE, __DIR__."/../");
 
         // Initialise the response, request and rest objects
         $this->request = new stdClass();
@@ -370,25 +476,18 @@ trait REST_Controller {
         $this->request->body = NULL;
 
         $this->{'_parse_' . $this->request->method}();
-
+        
         // Fix parse method return arguments null
         if($this->{'_'.$this->request->method.'_args'} === null)
         {
             $this->{'_'.$this->request->method.'_args'} = [];
         }
 
-        // Which format should the data be returned in?
-        $this->response->format = $this->_detect_output_format();
-
-        // Which language should the data be returned in?
-        $this->response->lang = $this->_detect_lang();
-
         // Now we know all about our request, let's try and parse the body if it exists
         if ($this->request->format && $this->request->body)
         {
-            $this->request->body = Format::factory($this->request->body, $this->request->format)->to_array();
-
-        // Assign payload arguments to proper method container
+            $this->request->body = $this->format->factory($this->request->body, $this->request->format)->to_array();
+            // Assign payload arguments to proper method container
             $this->{'_'.$this->request->method.'_args'} = $this->request->body;
         }
 
@@ -406,6 +505,12 @@ trait REST_Controller {
             $this->_delete_args,
             $this->{'_'.$this->request->method.'_args'}
         );
+
+        // Which format should the data be returned in?
+        $this->response->format = $this->_detect_output_format();
+
+        // Which language should the data be returned in?
+        $this->response->lang = $this->_detect_lang();
 
         // Extend this function to apply additional checking early on in the process
         $this->early_checks();
@@ -438,15 +543,15 @@ trait REST_Controller {
         {
             // Display an error response
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ajax_only')
-            ], REST_Controller_Definitions::HTTP_NOT_ACCEPTABLE);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ajax_only')
+                ], self::HTTP_NOT_ACCEPTABLE);
         }
 
         // When there is no specific override for the current class/method, use the default auth value set in the config
         if ($this->auth_override === FALSE &&
             (! ($this->config->item('rest_enable_keys') && $this->_allow === TRUE) ||
-                ($this->config->item('allow_auth_and_keys') === TRUE && $this->_allow === TRUE)))
+            ($this->config->item('allow_auth_and_keys') === TRUE && $this->_allow === TRUE)))
         {
             $rest_auth = strtolower($this->config->item('rest_auth'));
             switch ($rest_auth)
@@ -461,26 +566,11 @@ trait REST_Controller {
                     $this->_check_php_session();
                     break;
             }
-        }
-    }
-
-    /**
-     * @param $config_file
-     */
-    private function get_local_config($config_file)
-    {
-        if(file_exists(__DIR__."/../config/".$config_file.".php"))
-        {
-            $config = array();
-            include(__DIR__ . "/../config/" . $config_file . ".php");
-
-            foreach($config AS $key => $value)
+            if ($this->config->item('rest_ip_whitelist_enabled') === TRUE)
             {
-                $this->config->set_item($key, $value);
+                $this->_check_whitelist_auth();
             }
         }
-
-        $this->load->config($config_file, FALSE, TRUE);
     }
 
     /**
@@ -492,12 +582,12 @@ trait REST_Controller {
      */
     public function __destruct()
     {
+        // Get the current timestamp
+        $this->_end_rtime = microtime(TRUE);
+
         // Log the loading time to the log table
         if ($this->config->item('rest_enable_logging') === TRUE)
         {
-            // Get the current timestamp
-            $this->_end_rtime = microtime(TRUE);
-
             $this->_log_access_time();
         }
     }
@@ -532,7 +622,6 @@ trait REST_Controller {
      * @access public
      * @param string $object_called
      * @param array $arguments The arguments passed to the controller method
-     * @throws Exception
      */
     public function _remap($object_called, $arguments = [])
     {
@@ -540,20 +629,20 @@ trait REST_Controller {
         if ($this->config->item('force_https') && $this->request->ssl === FALSE)
         {
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unsupported')
-            ], REST_Controller_Definitions::HTTP_FORBIDDEN);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unsupported')
+                ], self::HTTP_FORBIDDEN);
         }
 
         // Remove the supported format from the function name e.g. index.json => index
         $object_called = preg_replace('/^(.*)\.(?:'.implode('|', array_keys($this->_supported_formats)).')$/', '$1', $object_called);
 
         $controller_method = $object_called.'_'.$this->request->method;
-        // Does this method exist? If not, try executing an index method
-        if (!method_exists($this, $controller_method)) {
-            $controller_method = "index_" . $this->request->method;
-            array_unshift($arguments, $object_called);
-        }
+	    // Does this method exist? If not, try executing an index method
+	    if (!method_exists($this, $controller_method)) {
+		    $controller_method = "index_" . $this->request->method;
+		    array_unshift($arguments, $object_called);
+	    }
 
         // Do we want to log this method (if allowed by config)?
         $log_method = ! (isset($this->methods[$controller_method]['log']) && $this->methods[$controller_method]['log'] === FALSE);
@@ -568,16 +657,16 @@ trait REST_Controller {
             {
                 $this->_log_request();
             }
-
-            // fix cross site to option request error
+            
+            // fix cross site to option request error 
             if($this->request->method == 'options') {
                 exit;
             }
 
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => sprintf($this->lang->line('text_rest_invalid_api_key'), $this->rest->key)
-            ], REST_Controller_Definitions::HTTP_FORBIDDEN);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => sprintf($this->lang->line('text_rest_invalid_api_key'), $this->rest->key)
+                ], self::HTTP_FORBIDDEN);
         }
 
         // Check to see if this key has access to the requested controller
@@ -589,18 +678,18 @@ trait REST_Controller {
             }
 
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_api_key_unauthorized')
-            ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_api_key_unauthorized')
+                ], self::HTTP_UNAUTHORIZED);
         }
 
         // Sure it exists, but can they do anything with it?
         if (! method_exists($this, $controller_method))
         {
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unknown_method')
-            ], REST_Controller_Definitions::HTTP_METHOD_NOT_ALLOWED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unknown_method')
+                ], self::HTTP_METHOD_NOT_ALLOWED);
         }
 
         // Doing key related stuff? Can only do it if they have a key right?
@@ -610,7 +699,7 @@ trait REST_Controller {
             if ($this->config->item('rest_enable_limits') && $this->_check_limit($controller_method) === FALSE)
             {
                 $response = [$this->config->item('rest_status_field_name') => FALSE, $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_api_key_time_limit')];
-                $this->response($response, REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                $this->response($response, self::HTTP_UNAUTHORIZED);
             }
 
             // If no level is set use 0, they probably aren't using permissions
@@ -627,7 +716,7 @@ trait REST_Controller {
             {
                 // They don't have good enough perms
                 $response = [$this->config->item('rest_status_field_name') => FALSE, $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_api_key_permissions')];
-                $this->response($response, REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                $this->response($response, self::HTTP_UNAUTHORIZED);
             }
         }
 
@@ -635,7 +724,7 @@ trait REST_Controller {
         elseif ($this->config->item('rest_limits_method') == "IP_ADDRESS" && $this->config->item('rest_enable_limits') && $this->_check_limit($controller_method) === FALSE)
         {
             $response = [$this->config->item('rest_status_field_name') => FALSE, $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_address_time_limit')];
-            $this->response($response, REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+            $this->response($response, self::HTTP_UNAUTHORIZED);
         }
 
         // No key stuff, but record that stuff is happening
@@ -647,9 +736,7 @@ trait REST_Controller {
         // Call the controller method and passed arguments
         try
         {
-            if ($this->is_valid_request) {
-                call_user_func_array([$this, $controller_method], $arguments);
-            }
+            call_user_func_array([$this, $controller_method], $arguments);
         }
         catch (Exception $ex)
         {
@@ -658,8 +745,8 @@ trait REST_Controller {
             }
 
             // If the method doesn't exist, then the error will be caught and an error response shown
-            $_error = &load_class('Exceptions', 'core');
-            $_error->show_exception($ex);
+	        $_error = &load_class('Exceptions', 'core');
+	        $_error->show_exception($ex);
         }
     }
 
@@ -669,105 +756,76 @@ trait REST_Controller {
      * @access public
      * @param array|NULL $data Data to output to the user
      * @param int|NULL $http_code HTTP status code
-     * @param bool $continue TRUE to flush the response to the client and continue
      * running the script; otherwise, exit
      */
-    public function response($data = NULL, $http_code = NULL, $continue = FALSE)
+    public function response($data = NULL, $http_code = NULL)
     {
-        //if profiling enabled then print profiling data
-        $isProfilingEnabled = $this->config->item('enable_profiling');
-        if(!$isProfilingEnabled){
-            ob_start();
-            // If the HTTP status is not NULL, then cast as an integer
-            if ($http_code !== NULL)
-            {
-                // So as to be safe later on in the process
-                $http_code = (int) $http_code;
-            }
+		ob_start();
+        // If the HTTP status is not NULL, then cast as an integer
+        if ($http_code !== NULL)
+        {
+            // So as to be safe later on in the process
+            $http_code = (int) $http_code;
+        }
 
-            // Set the output as NULL by default
-            $output = NULL;
+        // Set the output as NULL by default
+        $output = NULL;
 
-            // If data is NULL and no HTTP status code provided, then display, error and exit
-            if ($data === NULL && $http_code === NULL)
-            {
-                $http_code = REST_Controller_Definitions::HTTP_NOT_FOUND;
-            }
+        // If data is NULL and no HTTP status code provided, then display, error and exit
+        if ($data === NULL && $http_code === NULL)
+        {
+            $http_code = self::HTTP_NOT_FOUND;
+        }
 
-            // If data is not NULL and a HTTP status code provided, then continue
-            elseif ($data !== NULL)
+        // If data is not NULL and a HTTP status code provided, then continue
+        elseif ($data !== NULL)
+        {
+            // If the format method exists, call and return the output in that format
+            if (method_exists($this->format, 'to_' . $this->response->format))
             {
-                // If the format method exists, call and return the output in that format
-                if (method_exists(Format::class, 'to_' . $this->response->format))
+                // Set the format header
+                $this->output->set_content_type($this->_supported_formats[$this->response->format], strtolower($this->config->item('charset')));
+                $output = $this->format->factory($data)->{'to_' . $this->response->format}();
+
+                // An array must be parsed as a string, so as not to cause an array to string error
+                // Json is the most appropriate form for such a data type
+                if ($this->response->format === 'array')
                 {
-                    // Set the format header
-                    $this->output->set_content_type($this->_supported_formats[$this->response->format], strtolower($this->config->item('charset')));
-                    $output = Format::factory($data)->{'to_' . $this->response->format}();
-
-                    // An array must be parsed as a string, so as not to cause an array to string error
-                    // Json is the most appropriate form for such a data type
-                    if ($this->response->format === 'array')
-                    {
-                        $output = Format::factory($output)->{'to_json'}();
-                    }
+                    $output = $this->format->factory($output)->{'to_json'}();
                 }
-                else
-                {
-                    // If an array or object, then parse as a json, so as to be a 'string'
-                    if (is_array($data) || is_object($data))
-                    {
-                        $data = Format::factory($data)->{'to_json'}();
-                    }
-
-                    // Format is not supported, so output the raw data as a string
-                    $output = $data;
-                }
-            }
-
-            // If not greater than zero, then set the HTTP status code as 200 by default
-            // Though perhaps 500 should be set instead, for the developer not passing a
-            // correct HTTP status code
-            $http_code > 0 || $http_code = REST_Controller_Definitions::HTTP_OK;
-
-            $this->output->set_status_header($http_code);
-
-            // JC: Log response code only if rest logging enabled
-            if ($this->config->item('rest_enable_logging') === TRUE)
-            {
-                $this->_log_response_code($http_code);
-            }
-
-            // Output the data
-            $this->output->set_output($output);
-
-            if ($continue === FALSE)
-            {
-                // Display the data and exit execution
-                $this->output->_display();
-                exit;
             }
             else
             {
-                if (is_callable('fastcgi_finish_request')) 
+                // If an array or object, then parse as a json, so as to be a 'string'
+                if (is_array($data) || is_object($data))
                 {
-                    // Terminates connection and returns response to client on PHP-FPM.
-                    $this->output->_display();
-                    ob_end_flush();
-                    fastcgi_finish_request();
-                    ignore_user_abort(true);
+                    $data = $this->format->factory($data)->{'to_json'}();
                 }
-                else
-                {
-                    // Legacy compatibility.
-                    ob_end_flush();
-                }
-            }
 
-            // Otherwise dump the output automatically
+                // Format is not supported, so output the raw data as a string
+                $output = $data;
+            }
         }
-        else{
-            echo json_encode($data);
+
+        // If not greater than zero, then set the HTTP status code as 200 by default
+        // Though perhaps 500 should be set instead, for the developer not passing a
+        // correct HTTP status code
+        $http_code > 0 || $http_code = self::HTTP_OK;
+
+        $this->output->set_status_header($http_code);
+
+        // JC: Log response code only if rest logging enabled
+        if ($this->config->item('rest_enable_logging') === TRUE)
+        {
+            $this->_log_response_code($http_code);
         }
+
+        // Output the data
+        $this->output->set_output($output);
+
+        ob_end_flush();
+
+        // Otherwise dump the output automatically
     }
 
     /**
@@ -982,12 +1040,11 @@ trait REST_Controller {
                 {
                     // multiple ip addresses must be separated using a comma, explode and loop
                     $list_ip_addresses = explode(',', $row->ip_addresses);
-            $ip_address = $this->input->ip_address();
                     $found_address = FALSE;
 
                     foreach ($list_ip_addresses as $ip_address)
                     {
-                        if ($ip_address === trim($ip_address))
+                        if ($this->input->ip_address() === trim($ip_address))
                         {
                             // there is a match, set the the value to TRUE and break out of the loop
                             $found_address = TRUE;
@@ -1015,7 +1072,7 @@ trait REST_Controller {
      * Preferred return language
      *
      * @access protected
-     * @return string|NULL|array The language code
+     * @return string|NULL The language code
      */
     protected function _detect_lang()
     {
@@ -1093,28 +1150,28 @@ trait REST_Controller {
 
         switch ($this->config->item('rest_limits_method'))
         {
-            case 'IP_ADDRESS':
-                $api_key = $this->input->ip_address();
-                $limited_uri = 'ip-address:' . $api_key;
-                break;
+          case 'IP_ADDRESS':
+            $limited_uri = 'ip-address:' .$this->input->ip_address();
+            $api_key = $this->input->ip_address();
+            break;
 
-            case 'API_KEY':
-                $limited_uri = 'api-key:' . $api_key;
-                break;
+          case 'API_KEY':
+            $limited_uri = 'api-key:' . $api_key;
+            break;
 
-            case 'METHOD_NAME':
-                $limited_uri = 'method-name:' . $controller_method;
-                break;
+          case 'METHOD_NAME':
+            $limited_uri = 'method-name:' . $controller_method;
+            break;
 
-            case 'ROUTED_URL':
-            default:
-                $limited_uri = $this->uri->ruri_string();
-                if (strpos(strrev($limited_uri), strrev($this->response->format)) === 0)
-                {
-                    $limited_uri = substr($limited_uri,0, -strlen($this->response->format) - 1);
-                }
-                $limited_uri = 'uri:'.$limited_uri.':'.$this->request->method; // It's good to differentiate GET from PUT
-                break;
+          case 'ROUTED_URL':
+          default:
+            $limited_uri = $this->uri->ruri_string();
+            if (strpos(strrev($limited_uri), strrev($this->response->format)) === 0)
+            {
+                $limited_uri = substr($limited_uri,0, -strlen($this->response->format) - 1);
+            }
+            $limited_uri = 'uri:'.$limited_uri.':'.$this->request->method; // It's good to differentiate GET from PUT
+            break;
         }
 
         if (isset($this->methods[$controller_method]['limit']) === FALSE )
@@ -1417,8 +1474,8 @@ trait REST_Controller {
         }
         else if ($this->input->method() === 'put')
         {
-            // If no file type is provided, then there are probably just arguments
-            $this->_put_args = $this->input->input_stream();
+           // If no file type is provided, then there are probably just arguments
+           $this->_put_args = $this->input->input_stream();
         }
     }
 
@@ -1701,7 +1758,7 @@ trait REST_Controller {
 
         log_message('debug', 'LDAP Auth: Loading configuration');
 
-        $this->config->load('ldap', TRUE);
+        $this->config->load('ldap.php', TRUE);
 
         $ldap = [
             'timeout' => $this->config->item('timeout', 'ldap'),
@@ -1882,12 +1939,6 @@ trait REST_Controller {
      */
     protected function _check_php_session()
     {
-        // If whitelist is enabled it has the first chance to kick them out
-        if ($this->config->item('rest_ip_whitelist_enabled'))
-        {
-            $this->_check_whitelist_auth();
-        }
-
         // Get the auth_source config item
         $key = $this->config->item('auth_source');
 
@@ -1896,9 +1947,9 @@ trait REST_Controller {
         {
             // Display an error response
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unauthorized')
-            ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unauthorized')
+                ], self::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -1918,7 +1969,7 @@ trait REST_Controller {
 
         // Returns NULL if the SERVER variables PHP_AUTH_USER and HTTP_AUTHENTICATION don't exist
         $username = $this->input->server('PHP_AUTH_USER');
-        $http_auth = $this->input->server('HTTP_AUTHENTICATION') ?: $this->input->server('HTTP_AUTHORIZATION');
+        $http_auth = $this->input->server('HTTP_AUTHENTICATION');
 
         $password = NULL;
         if ($username !== NULL)
@@ -1980,22 +2031,23 @@ trait REST_Controller {
         $digest = (empty($matches[1]) || empty($matches[2])) ? [] : array_combine($matches[1], $matches[2]);
 
         // For digest authentication the library function should return already stored md5(username:restrealm:password) for that username see rest.php::auth_library_function config
-        if (isset($digest['username']) === FALSE || $this->_check_login($digest['username'], TRUE) === FALSE)
+        $username = $this->_check_login($digest['username'], TRUE);
+        if (array_key_exists('username', $digest) === FALSE || $username === FALSE)
         {
             $this->_force_login($unique_id);
         }
 
         $md5 = md5(strtoupper($this->request->method).':'.$digest['uri']);
-        $valid_response = md5($digest['username'].':'.$digest['nonce'].':'.$digest['nc'].':'.$digest['cnonce'].':'.$digest['qop'].':'.$md5);
+        $valid_response = md5($username.':'.$digest['nonce'].':'.$digest['nc'].':'.$digest['cnonce'].':'.$digest['qop'].':'.$md5);
 
         // Check if the string don't compare (case-insensitive)
         if (strcasecmp($digest['response'], $valid_response) !== 0)
         {
             // Display an error response
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_invalid_credentials')
-            ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_invalid_credentials')
+                ], self::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -2015,9 +2067,9 @@ trait REST_Controller {
         {
             // Display an error response
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_denied')
-            ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_denied')
+                ], self::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -2043,9 +2095,9 @@ trait REST_Controller {
         if (in_array($this->input->ip_address(), $whitelist) === FALSE)
         {
             $this->response([
-                $this->config->item('rest_status_field_name') => FALSE,
-                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_unauthorized')
-            ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                    $this->config->item('rest_status_field_name') => FALSE,
+                    $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_unauthorized')
+                ], self::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -2059,14 +2111,14 @@ trait REST_Controller {
      */
     protected function _force_login($nonce = '')
     {
-        $rest_auth = strtolower($this->config->item('rest_auth'));
+        $rest_auth = $this->config->item('rest_auth');
         $rest_realm = $this->config->item('rest_realm');
-        if ($rest_auth === 'basic')
+        if (strtolower($rest_auth) === 'basic')
         {
             // See http://tools.ietf.org/html/rfc2617#page-5
             header('WWW-Authenticate: Basic realm="'.$rest_realm.'"');
         }
-        elseif ($rest_auth === 'digest')
+        elseif (strtolower($rest_auth) === 'digest')
         {
             // See http://tools.ietf.org/html/rfc2617#page-18
             header(
@@ -2075,15 +2127,11 @@ trait REST_Controller {
                 .'", opaque="' . md5($rest_realm).'"');
         }
 
-        if ($this->config->item('strict_api_and_auth') === true) {
-            $this->is_valid_request = false;
-        }
-
         // Display an error response
         $this->response([
-            $this->config->item('rest_status_field_name') => FALSE,
-            $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unauthorized')
-        ], REST_Controller_Definitions::HTTP_UNAUTHORIZED);
+                $this->config->item('rest_status_field_name') => FALSE,
+                $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_unauthorized')
+            ], self::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -2095,16 +2143,12 @@ trait REST_Controller {
      */
     protected function _log_access_time()
     {
-        if($this->_insert_id == ''){
-            return false;
-        }
-
         $payload['rtime'] = $this->_end_rtime - $this->_start_rtime;
 
         return $this->rest->db->update(
-            $this->config->item('rest_logs_table'), $payload, [
-            'id' => $this->_insert_id
-        ]);
+                $this->config->item('rest_logs_table'), $payload, [
+                'id' => $this->_insert_id
+            ]);
     }
 
     /**
@@ -2117,10 +2161,6 @@ trait REST_Controller {
      */
     protected function _log_response_code($http_code)
     {
-        if($this->_insert_id == ''){
-            return false;
-        }
-
         $payload['response_code'] = $http_code;
 
         return $this->rest->db->update(
@@ -2143,6 +2183,16 @@ trait REST_Controller {
             return TRUE;
         }
 
+        //check if the key has all_access
+        $accessRow = $this->rest->db
+            ->where('key', $this->rest->key)
+            ->get($this->config->item('rest_access_table'))->row_array();
+
+        if (!empty($accessRow) && !empty($accessRow['all_access']))
+        {
+        	return TRUE;
+        }
+
         // Fetch controller based on path and controller name
         $controller = implode(
             '/', [
@@ -2153,18 +2203,12 @@ trait REST_Controller {
         // Remove any double slashes for safety
         $controller = str_replace('//', '/', $controller);
 
-        //check if the key has all_access
-        $accessRow = $this->rest->db
+        // Query the access table and get the number of results
+        return $this->rest->db
             ->where('key', $this->rest->key)
             ->where('controller', $controller)
-            ->get($this->config->item('rest_access_table'))->row_array();
-
-        if (!empty($accessRow) && !empty($accessRow['all_access']))
-        {
-            return TRUE;
-        }
-
-        return false;
+            ->get($this->config->item('rest_access_table'))
+            ->num_rows() > 0;
     }
 
     /**
@@ -2176,8 +2220,8 @@ trait REST_Controller {
     protected function _check_cors()
     {
         // Convert the config items into strings
-        $allowed_headers = implode(', ', $this->config->item('allowed_cors_headers'));
-        $allowed_methods = implode(', ', $this->config->item('allowed_cors_methods'));
+        $allowed_headers = implode(' ,', $this->config->item('allowed_cors_headers'));
+        $allowed_methods = implode(' ,', $this->config->item('allowed_cors_methods'));
 
         // If we want to allow any domain to access the API
         if ($this->config->item('allow_any_cors_domain') === TRUE)
@@ -2205,23 +2249,9 @@ trait REST_Controller {
             }
         }
 
-        // If there are headers that should be forced in the CORS check, add them now
-        if (is_array($this->config->item('forced_cors_headers')))
-        {
-            foreach ($this->config->item('forced_cors_headers') as $header => $value)
-            {
-                header($header . ': ' . $value);
-            }
-        }
-
         // If the request HTTP method is 'OPTIONS', kill the response and send it to the client
         if ($this->input->method() === 'options')
         {
-            // Load DB if needed for logging
-            if (!isset($this->rest->db) && $this->config->item('rest_enable_logging'))
-            {
-                $this->rest->db = $this->load->database($this->config->item('rest_database_group'), TRUE);
-            }
             exit;
         }
     }

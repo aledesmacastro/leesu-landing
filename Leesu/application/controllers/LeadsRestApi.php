@@ -1,18 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*use Restserver\Libraries\REST_Controller;
-use Restserver\Libraries\REST_Controller_Definitions;
-
-require APPPATH . '/libraries/Format.php';
 require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . '/libraries/REST_Controller_Definitions.php';*/
 
-class LeadsRestApi extends CI_Controller {
-
-	/*use REST_Controller {
-		REST_Controller::__construct as private __resTraitConstruct;
-	}*/
+class LeadsRestApi extends REST_Controller {
 
 	public function __construct()
 	{
@@ -21,29 +12,28 @@ class LeadsRestApi extends CI_Controller {
 		$this->load->model("Leads_model");
 	}
 
-	public function getLeads_get(){
+	public function index_get(){
 		$this->load->model("Leads_model");
 		$datos = $this->Leads_model->get();
-		$this->response($datos);
+		$this->response($datos, REST_Controller::HTTP_OK);
 	}
 
-	public function addLead(){
-		$this->form_validation->set_data($this->input->get());
+	public function index_post(){
 
 		$this->form_validation->set_rules('first_name','First Name','required');
 		$this->form_validation->set_rules('last_name','Last Name','required');
-		$this->form_validation->set_rules('email','Email','required');
+		$this->form_validation->set_rules('email','Email','required|valid_email');
 		$this->form_validation->set_rules('phone','Phone','required');
 		$this->form_validation->set_rules('city','City','required');
 
 		if ($this->form_validation->run()) {
 			$data = array(
-				'first_name'	=> $this->input->get('first_name'),
-				'last_name'		=> $this->input->get('last_name'),
-				'email'			=> $this->input->get('email'),
-				'phone'			=> $this->input->get('phone'),
-				'city'			=> $this->input->get('city'),
-				'comments'		=> $this->input->get('comments'),
+				'first_name'	=> $this->input->post('first_name'),
+				'last_name'		=> $this->input->post('last_name'),
+				'email'			=> $this->input->post('email'),
+				'phone'			=> $this->input->post('phone'),
+				'city'			=> $this->input->post('city'),
+				'comments'		=> $this->input->post('comments'),
 				'ip_address'	=> $this->input->ip_address()
 			);
 
@@ -59,7 +49,15 @@ class LeadsRestApi extends CI_Controller {
 			);
 		}
 
-		echo json_encode($array);
+		$this->response($array, REST_Controller::HTTP_OK);
 	}
+
+	public function index_put(){
+		$this->response('Metodo en implementacion', REST_Controller::HTTP_OK);
+	}
+
+	public function index_delete(){
+		$this->response('Metodo en implementacion', REST_Controller::HTTP_OK);
+	}	
 	
 }
