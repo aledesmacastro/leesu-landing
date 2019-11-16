@@ -1,0 +1,17 @@
+.container_main {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template: auto auto / minmax(auto, 75%) minmax(300px, 25%);
+    grid-gap: 10px;
+    .asideLeft {
+        @include flexbox(column, wrap, center, flex-start);
+        color: white;
+        text-align: left;
+        h2 {
+            margin-bottom: 5px;
+            font-size: 2rem;
+            letter-spacing: 0.8px;
+        }
+    }
+}

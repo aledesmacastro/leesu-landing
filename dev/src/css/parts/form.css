@@ -3,6 +3,7 @@
 :--inputs {
     background-color: var(--grayLight);
     color: white;
+    display: block;
     padding: 4px;
     border-radius: 5px;
     border: 1px solid var(--grayDark);
@@ -22,5 +23,34 @@
         -webkit-text-fill-color: #FFFF;
         -webkit-box-shadow: 0 0 0px 1000px var(--grayLight) inset;
         transition: background-color 5000s ease-in-out 0s;
+    }
+}
+
+.asideRight__formulario {
+    margin: 10px 0;
+    form {
+        color: var(--grayLight);
+        padding: 10px;
+        background-color: var(--grayDark);
+        .group {
+            @include flexbox(column, wrap, flex-start, flex-start);
+            position: relative;
+        }
+        label {
+            font-size: 0;
+            overflow: hidden;
+            color: transparent;
+            width: 0;
+            height: 0;
+        }
+        .group_title {
+            display: block;
+            margin: 0 auto 10px;
+            h2 {
+                text-align: center;
+                font-size: 1.2rem;
+                letter-spacing: .8px;
+            }
+        }
     }
 }

@@ -7,4 +7,6 @@
 @import 'parts/base';
 
 @import 'parts/header';
+@import 'parts/containerMain';
 @import 'parts/form';
+@import 'parts/postContent';

@@ -36,9 +36,9 @@ gulp.task('css', function () {
                 grid: true
             },
             browsers: [
-                "last 3 version"
+                "last 2 version"
             ],
-            stage: 4,
+            stage: 3,
             features: {
                 'nesting-rules': true
             },

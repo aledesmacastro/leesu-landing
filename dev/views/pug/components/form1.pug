@@ -1,25 +1,25 @@
-form(action="" method="POST")
-    .group_title
+form(action="" method="POST" autocomplete="off")
+    .group_title.group
         h2 Información de contacto
-    .group_info_names
+    .group_info_names.group
         label(for="first_name") First Name
         input(type="text", name="first_name")
         label(for="last_name") Last Name
         input(type="text", name="last_name")
-    .group_contact
+    .group_contact.group
         label(for="email") Email
         input(type="email", name="email")
         label(for="phone") Phone
         input(type="tel", name="phone")
-    .group_residen_information
+    .group_residen_information.group
         label(for="city") Ciudad
         input(type="text", name="city")
-    .group_politics
+    .group_politics.group
         label(for="comments") Comentarios
         textarea(name="comments", cols="30", rows="10")
         label(for="accept") Lorem ipsum dolor sit amet.
         input(type="checkbox", name="accept")
         input(class="campaign" type="hidden", name="")
         input(class="" type="hidden", name="") 
-    .group_buttons
+    .group_buttons.group
         button(type="submit", value="Enviar") Enviar

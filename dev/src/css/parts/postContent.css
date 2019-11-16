@@ -1,0 +1,14 @@
+.postContent {
+    padding: 20px 0;
+    background-color: var(--gray);
+    h2 {
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+        letter-spacing: 0.8px;
+    }
+    ul {
+        li {
+            list-style-image: url('../images/svg/vineta_base.svg');
+        }
+    }
+}
