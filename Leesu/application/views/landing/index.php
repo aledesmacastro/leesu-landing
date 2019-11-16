@@ -137,6 +137,11 @@
                     if (data.success) {
                       swal("Finaliza Registro", "Procesado Realizado Exitosamente", "success");
                       $('#leads_form')[0].reset();
+                      $('#first_name_error').html('');
+                      $('#last_name_error').html('');
+                      $('#email_error').html('');
+                      $('#phone_error').html('');
+                      $('#city_error').html('');
                     }
 
                     if (data.error) {
