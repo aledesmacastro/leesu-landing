@@ -2,6 +2,7 @@ header {
     padding: 5px 0;
     background-color: var(--grayDark);
     color: white;
+    border-bottom: 1px solid var(--orange);
 }
 
 .header_container div {

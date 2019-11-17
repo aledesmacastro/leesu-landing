@@ -1,14 +1,20 @@
 //- VARIABLES
 -var namePage= "Everest Andorra"
 -var email= "info@leesu.co"
--var infoLista= ["Lorem, ipsum.", "Lorem, ipsum dolor.", "Lorem ipsum dolor sit."]
--var urlsRedes= ["facebook", "twitter", "instagram", "whatsapp"]
--var copyright= "© 2019 Leesu todos los derechos reservados"
+-var infoLista= ["Lorem, ipsum.", "Lorem, ipsum dolor.", "Lorem ipsum dolor sit.","Lorem ipsum dolor sit.","Lorem ipsum dolor sit."]
+-var urlsRedes= ["facebook", "twitter", "instagram"]
+-var copyright= "© 2019 Leesu. Todos los derechos reservados"
 
 //- MIXIN
 mixin redSocial
     .contentSocial
-        p REDES SOCIALES
+        h6 Siguenos en nuestras redes sociales
         ul
-            each urlRed in urlsRedes
-                li: a(href=urlRed) #{urlRed}
+            li 
+                a#facebook(href="http://") #{urlsRedes[0]}
+            li
+                a#twitter(href="http://") #{urlsRedes[1]}
+            li
+                a#instagram(href="http://") #{urlsRedes[2]}
+            //- li: a(href="http://") #{urlsRedes[2]}
+            

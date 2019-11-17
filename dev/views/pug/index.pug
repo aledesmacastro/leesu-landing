@@ -13,11 +13,17 @@ block MAINCONTENT
         .asideRight__formulario
             include components/form1.pug
 block POSTCONTENT
-    h2 Lorem ipsum dolor sit, amet consectetur adipisicing.
-    p Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.
-    ul
-        each lista in infoLista
-            li #{lista}
+    .containerTwoColumn
+        .blockLeft
+            h2 Lorem ipsum dolor sit, amet consectetur adipisicing.
+            p Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.
+            ul
+                each lista in infoLista
+                    li #{lista}
+block INFORMATION
+    .additionalInformation
+        h2 Lorem ipsum dolor sit.
+        p Lorem ipsum dolor sit amet.
 block PREFOOTER
     section.preFooter
         +redSocial

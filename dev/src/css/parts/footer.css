@@ -1,0 +1,23 @@
+.footer_container {
+    font-size: .8rem;
+    color: white;
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: 25% 75%;
+
+    h2 {
+        font-size: .8rem;
+        letter-spacing: .8px;
+        font-size: 1.2rem;
+    }
+    p {
+        font-size: .8rem;
+        margin-bottom: 5px;
+        span {
+            a {
+                font-style: italic;
+                margin-left: 5px;
+            }
+        }
+    }
+}

@@ -39,3 +39,10 @@ $oswald: 'Oswald regular', Helvetica, sans-serif;
     url('fonts/Lato_regular.eot') format('embedded-opentype');
 }
 $lato: 'Lato regular', Helvetica, sans-serif;
+@font-face {
+    font-family: 'Helvetica neue';
+    src: local('Helvetica neue'),
+    url('fonts/helvetica_neue_lts_td_bd.ttf') format('truetype'),
+    url('fonts/helvetica_neue_lts_td_bd.eot') format('embedded-opentype');
+}
+$helveticaNeue: 'Helvetica neue', Helvetica, sans-serif;

@@ -1,0 +1,33 @@
+.information {
+    max-height: 300px;
+    min-height: 40vh;
+    position: relative;
+    background-image: url('../images/backgrounds/cajas.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    @include flexbox(column, wrap, center, center);
+    &:before {
+        background-color: var(--grayDark);
+        position: absolute;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+    }
+    .additionalInformation {
+        @include flexbox(column, wrap, center, center);
+        color: white;
+        h2 {
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            font-family: $helveticaNeue;
+            z-index: 1;
+        }
+        p {
+            z-index: 1;
+        }
+    }
+}

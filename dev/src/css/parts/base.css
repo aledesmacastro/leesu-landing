@@ -21,6 +21,12 @@ a{
     color: white;
 }
 
+strong {
+    font-weight: normal;
+    font-family: $oswald;
+    letter-spacing: .5px;
+}
+
 body {
     font-family: $roboto;
     background-color: var(--grayMedium);
@@ -30,5 +36,41 @@ body {
 .container_fluid {
     width: 75vw;
     margin: auto;
+}
+
+.contentSocial {
+    padding: 35px;
+    @include flexbox(column, wrap, center, center);
+    h6  {
+        color: var(--grayDark);
+        margin-bottom: 5px;
+        font-size: 1.4rem;
+        letter-spacing: 0.8px;
+        margin-bottom: 20px;
+    }
+    ul {
+        @include flexbox(row, wrap, flex-start, flex-start);
+        list-style: none;
+        li {
+            a {
+                display: block;
+                width: 35px;
+                height: 35px;
+                font-size: 0;
+                background-position: center;
+                background-repeat: no-repeat;
+                margin: 0 10px;
+                &#facebook {
+                    background-image: url('../images/sprites/facebook.png');
+                }
+                &#twitter {
+                    background-image: url('../images/sprites/twitter.png');
+                }
+                &#instagram {
+                    background-image: url('../images/sprites/instagram.png');
+                }
+            }
+        }
+    }
 }
 

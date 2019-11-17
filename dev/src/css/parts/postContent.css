@@ -1,14 +1,37 @@
 .postContent {
-    padding: 20px 0;
+    padding: 30px 0 20px;
     background-color: var(--gray);
-    h2 {
-        margin-bottom: 5px;
-        font-size: 1.2rem;
-        letter-spacing: 0.8px;
-    }
-    ul {
-        li {
-            list-style-image: url('../images/svg/vineta_base.svg');
+    .containerTwoColumn {
+        display: grid;
+        grid-template: auto auto / minmax(50%, 100%) minmax(auto, 50%);
+        grid-gap: 10px;
+        h2 {
+            color: var(--grayBlack);
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+            letter-spacing: 0.8px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        ul {
+            @include flexbox(column, wrap, flex-start, flex-start);
+            padding-top: 10px;
+            li {
+                @include flexbox(row, wrap, flex-start, center);
+                margin-bottom: 5px;
+                list-style: none;
+                &:before{
+                    margin-right: 5px;
+                    height: 15px;
+                    width: 15px;
+                    position: relative;
+                    display: inline;
+                    content:'';
+                    background-position: 0 0;
+                    background-image: url('../images/svg/vineta_base.svg');
+                }
+            }
         }
     }
 }

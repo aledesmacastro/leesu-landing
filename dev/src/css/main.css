@@ -10,3 +10,5 @@
 @import 'parts/containerMain';
 @import 'parts/form';
 @import 'parts/postContent';
+@import 'parts/information';
+@import 'parts/footer';

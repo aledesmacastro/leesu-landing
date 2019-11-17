@@ -9,7 +9,7 @@
 }
 .mainContent {
     position: relative;
-    background-image: url("../images/imagen-main.jpg");
+    background-image: url("../images/backgrounds/imagen-main.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
@@ -27,8 +27,8 @@
     /* background-color: $color-d; */
 }
 .preFooter {
-    background-color: $color-e;
+    background-color: var(--gray);
 }
 .footer {
-    background-color: $color-f;
+    background-color: var(--grayDark);
 }
