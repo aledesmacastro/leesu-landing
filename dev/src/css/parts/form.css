@@ -52,5 +52,43 @@
                 letter-spacing: .8px;
             }
         }
+
+        .group_politics {
+            font-size: .8rem;
+            margin-top: 20px;
+            text-transform: uppercase;
+            @include flexbox(row, wrap, flex-start, flex-start);
+            color: white;
+            &:before {
+                content:'';
+                width: 15px;
+                height: 20px;
+                margin-right: 10px;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-image: url('../images/sprites/padlock.png');
+                background-position: left center;
+                display: inline-block;
+                position: relative;
+            }
+            p {
+                @include flexbox(row, wrap, flex-start, flex-start);
+                max-width: 90%;
+                margin-bottom: 20px;
+            }
+        }
+        .group_buttons {
+            @include flexbox(row, wrap, center, center);
+            #send {
+                color: white;
+                text-decoration: none;
+                background-color: var(--orange);
+                border: 1px solid var(--orange);
+                border-radius: 21px;
+                width: 200px;
+                height: 45px;
+                cursor: pointer;
+            }
+        }
     }
 }

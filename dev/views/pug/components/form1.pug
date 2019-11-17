@@ -14,12 +14,15 @@ form(action="" method="POST" autocomplete="off" id="leads_form")
     .group_residen_information.group
         label(for="city") Ciudad
         input(type="text", name="city")
-    .group_politics.group
+    .group_comments
         label(for="comments") Comentarios
         textarea(name="comments", cols="30", rows="10")
-        label(for="accept") Lorem ipsum dolor sit amet.
-        input(type="checkbox", name="accept")
+    .group_politics.group
+        p Debes aceptar las políticas de privacidad y manejo de la informacion.
+            label(for="accept")
+            span: input(type="checkbox", name="accept")
+    .group_camps_hidden
         input(class="campaign" type="hidden", name="")
         input(class="" type="hidden", name="") 
-    .group_buttons.group
+    .group_buttons
         button(type="submit",  id="send" value="Enviar") Enviar

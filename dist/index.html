@@ -54,15 +54,21 @@
                 <label for="city">Ciudad</label>
                 <input type="text" name="city"/>
               </div>
-              <div class="group_politics group">
+              <div class="group_comments">
                 <label for="comments">Comentarios</label>
                 <textarea name="comments" cols="30" rows="10"></textarea>
-                <label for="accept">Lorem ipsum dolor sit amet.</label>
-                <input type="checkbox" name="accept"/>
+              </div>
+              <div class="group_politics group">
+                <p>Debes aceptar las políticas de privacidad y manejo de la informacion.
+                  <label for="accept"></label><span>
+                    <input type="checkbox" name="accept"/></span>
+                </p>
+              </div>
+              <div class="group_camps_hidden">
                 <input class="campaign" type="hidden" name=""/>
                 <input type="hidden" name=""/>
               </div>
-              <div class="group_buttons group">
+              <div class="group_buttons">
                 <button type="submit" id="send" value="Enviar">Enviar</button>
               </div>
             </form>
@@ -102,7 +108,6 @@
             <h6>Siguenos en nuestras redes sociales</h6>
             <ul>
               <li> <a id="facebook" href="http://">facebook</a></li>
-              <li><a id="twitter" href="http://">twitter</a></li>
               <li><a id="instagram" href="http://">instagram</a></li>
             </ul>
           </div>
