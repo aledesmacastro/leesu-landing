@@ -35,11 +35,11 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.</p>
           </div>
           <div class="asideRight__formulario">
-            <form action="" method="post" id="leads_form">
-              <div class="group_title">
+            <form action="" method="POST" autocomplete="off" id="leads_form">
+              <div class="group_title group">
                 <h2>Información de contacto</h2>
               </div>
-              <div class="group_info_names">
+              <div class="group_info_names group">
                 <label for="first_name">First Name</label>
                 <input type="text" name="first_name" id="first_name" />
                 <span id="first_name_error"></span>
@@ -47,7 +47,7 @@
                 <input type="text" name="last_name" id="last_name" />
                 <span id="last_name_error"></span>
               </div>
-              <div class="group_contact">
+              <div class="group_contact group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" />
                 <span id="email_error"></span>
@@ -55,17 +55,24 @@
                 <input type="tel" name="phone" id="phone" />
                 <span id="phone_error"></span>
               </div>
-              <div class="group_residen_information">
+              <div class="group_residen_information group">
                 <label for="city">Ciudad</label>
                 <input type="text" name="city" id="city" />
                 <span id="city_error"></span>
               </div>
-              <div class="group_politics">
+			  <div class="group_comments">
                 <label for="comments">Comentarios</label>
-                <textarea name="comments" cols="30" rows="10" id="comments"></textarea>
-                <label for="accept">Lorem ipsum dolor sit amet.</label>
-                <input type="checkbox" name="accept" id="accept" />
+                <textarea name="comments" cols="30" rows="10"></textarea>
+              </div>
+              <div class="group_politics group">
+                <p>Debes aceptar las políticas de privacidad y manejo de la informacion.
+                  <label for="accept"></label><span>
+                    <input type="checkbox" name="accept" id="accept"/></span>
+                </p>
+              </div>
+              <div class="group_camps_hidden">
                 <input class="campaign" type="hidden" name=""/>
+                <input type="hidden" name=""/>
               </div>
               <div class="group_buttons">
                 <button type="button" value="Enviar" id="send">Enviar</button>
@@ -77,23 +84,37 @@
     </main>
     <section class="postContent">
       <div class="container_fluid">
-        <ul>
-          <li>Lorem, ipsum.</li>
-          <li>Lorem, ipsum dolor.</li>
-          <li>Lorem ipsum dolor sit.</li>
-        </ul>
+        <div class="containerTwoColumn">
+          <div class="blockLeft">
+            <h2>Lorem ipsum dolor sit, amet consectetur adipisicing.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quas.</p>
+            <ul>
+              <li>Lorem, ipsum.</li>
+              <li>Lorem, ipsum dolor.</li>
+              <li>Lorem ipsum dolor sit.</li>
+              <li>Lorem ipsum dolor sit.</li>
+              <li>Lorem ipsum dolor sit.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="information">
+      <div class="container_fluid">
+        <div class="additionalInformation">
+          <h2>Lorem ipsum dolor sit.</h2>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
       </div>
     </section>
     <Section class="preFooter">
       <div class="container_fluid">
         <section class="preFooter">
           <div class="contentSocial">
-            <p>REDES SOCIALES</p>
+            <h6>Siguenos en nuestras redes sociales</h6>
             <ul>
-              <li><a href="facebook">facebook</a></li>
-              <li><a href="twitter">twitter</a></li>
-              <li><a href="instagram">instagram</a></li>
-              <li><a href="whatsapp">whatsapp</a></li>
+              <li> <a id="facebook" href="http://">facebook</a></li>
+              <li><a id="instagram" href="http://">instagram</a></li>
             </ul>
           </div>
         </section>
@@ -102,13 +123,16 @@
     <footer class="footer">
       <div class="container_fluid">
         <div class="footer_container">
-          <div class="footer_logo">Lorem, ipsum dolor.<img src="" alt="logo" srcset=""/></div>
+          <div class="footer_logo"> 
+            <h2>Leesu</h2>
+            <p><strong>su mejor opción.</strong></p>
+          </div>
           <div class="footer_information">
             <p>
               Lorem ipsum dolor sit amet consectetur,
               adipisicing elit. Culpa, sapiente.
             </p>
-            <p><b>© 2019 Leesu todos los derechos reservados</b><span>Política de privacidad.</span></p>
+            <p><strong>© 2019 Leesu. Todos los derechos reservados</strong><span><a href="http://">Política de privacidad.</a></span></p>
           </div>
         </div>
       </div>

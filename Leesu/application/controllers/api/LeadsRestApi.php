@@ -9,14 +9,13 @@ class LeadsRestApi extends REST_Controller {
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model("Leads_model");
+		$this->load->model("leads_model");
 		
 	}
 
 	public function index_get(){
-		
-		$this->load->model("Leads_model");
-		$datos = $this->Leads_model->get();
+
+		$datos = $this->leads_model->get();
 		$this->response($datos, REST_Controller::HTTP_OK);
 		
 	}
@@ -40,7 +39,7 @@ class LeadsRestApi extends REST_Controller {
 				'ip_address'	=> $this->input->ip_address()
 			);
 
-			$array = $this->Leads_model->addLead($data);
+			$array = $this->leads_model->addLead($data);
 		}else{
 			$array = array(
 				'error' 			=> true,

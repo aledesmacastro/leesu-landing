@@ -621,7 +621,7 @@ abstract class REST_Controller extends \CI_Controller {
      *
      * @access public
      * @param string $object_called
-     * @phparam array $arguments The arguments passed to the controller method
+     * @param array $arguments The arguments passed to the controller method
      */
     public function _remap($object_called, $arguments = [])
     {
