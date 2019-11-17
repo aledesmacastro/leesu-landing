@@ -621,7 +621,7 @@ abstract class REST_Controller extends \CI_Controller {
      *
      * @access public
      * @param string $object_called
-     * @param array $arguments The arguments passed to the controller method
+     * @phparam array $arguments The arguments passed to the controller method
      */
     public function _remap($object_called, $arguments = [])
     {
@@ -760,6 +760,11 @@ abstract class REST_Controller extends \CI_Controller {
      */
     public function response($data = NULL, $http_code = NULL)
     {
+
+        if ($this->output->get_output() != null) {
+            return;
+        }
+
 		ob_start();
         // If the HTTP status is not NULL, then cast as an integer
         if ($http_code !== NULL)
@@ -1970,7 +1975,7 @@ abstract class REST_Controller extends \CI_Controller {
         // Returns NULL if the SERVER variables PHP_AUTH_USER and HTTP_AUTHENTICATION don't exist
         $username = $this->input->server('PHP_AUTH_USER');
         $http_auth = $this->input->server('HTTP_AUTHENTICATION');
-
+        
         $password = NULL;
         if ($username !== NULL)
         {

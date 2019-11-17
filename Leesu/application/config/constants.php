@@ -83,3 +83,9 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+//API REST
+defined('KEY_API_REST')      	OR define('KEY_API_REST', '38209fd30a6ef9209b35d2b6d46ba710');
+defined('USER_API_REST')      	OR define('USER_API_REST', 'usermasterleesu');
+defined('PASS_API_REST')      	OR define('PASS_API_REST', 'Cerberos@');
