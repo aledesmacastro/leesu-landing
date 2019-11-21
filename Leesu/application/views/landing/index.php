@@ -168,7 +168,16 @@
                       $('#city_error').html('');
                     }
 
-                    if (data.error) {
+                    if (data.error_sql) {
+                      swal("Error Registro", "Se presentó un error al momento de crear este registro", "error");
+                      $('#first_name_error').html('');
+                      $('#last_name_error').html('');
+                      $('#email_error').html('');
+                      $('#phone_error').html('');
+                      $('#city_error').html('');
+                    }
+
+                    if (data.error_validate) {
                       $('#first_name_error').html(data.first_name_error);
                       $('#last_name_error').html(data.last_name_error);
                       $('#email_error').html(data.email_error);

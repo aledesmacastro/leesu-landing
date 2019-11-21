@@ -42,7 +42,7 @@ class LeadsRestApi extends REST_Controller {
 			$array = $this->leads_model->addLead($data);
 		}else{
 			$array = array(
-				'error' 			=> true,
+				'error_validate' 	=> true,
 				'first_name_error'	=> form_error('first_name'),
 				'last_name_error'	=> form_error('last_name'),
 				'email_error'		=> form_error('email'),

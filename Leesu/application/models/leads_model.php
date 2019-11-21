@@ -18,7 +18,7 @@ class Leads_model extends CI_Model{
 			);
 		}else{
 			$array = array(
-				'success'	=> false
+				'error_sql'	=> true
 			);	
 		}
 
