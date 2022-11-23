@@ -18,7 +18,7 @@
   "homepage": "https://github.com/aledesmadev/leesu#readme",
   "devDependencies": {
     "autoprefixer": "^9.7.0",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "cssnext": "^1.8.4",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
